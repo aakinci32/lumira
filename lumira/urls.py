@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.urls import path
 from django.shortcuts import render
+from lumira import views
 
 urlpatterns = [
     path('', lambda request: render(request, 'index.html')),
+    path('add/', views.add_availability, name='add_availability'),
+    
 ]

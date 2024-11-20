@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Add Availability{% endblock %}
+
+{% block content %}
+<section class="section container">
+    <h1 class="section__title">Add Availability</h1>
+    <p>Fill in your availability for tutoring sessions below:</p>
+
+    <form method="post" class="form">
+        {% csrf_token %}
+        <div class="form__group">
+            {{ form.date.label_tag }}<br>
+            {{ form.date }}
+        </div>
+        <div class="form__group">
+            {{ form.start_time.label_tag }}<br>
+            {{ form.start_time }}
+        </div>
+        <div class="form__group">
+            {{ form.end_time.label_tag }}<br>
+            {{ form.end_time }}
+        </div>
+        <button type="submit" class="button">Save Availability</button>
+    </form>
+</section>
+{% endblock %}
+
