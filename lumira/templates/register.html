@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<section class="section container">
+    <h1 class="section__title">Register</h1>
+    <p>By continuing below, you agree to Lumira's <a href="#">terms</a> and <a href="#">privacy policy</a>.</p>
+    
+    <!-- OAuth Sign-Up Buttons -->
+    <div class="oauth-buttons">
+        <a class="oauth-button google">
+            <!--<img src="{% static 'img/google-icon.png' %}" alt="Google">--> Continue with Google
+        </a>
+    </div>
+
+    <div class="separator">
+        <span>or</span>
+    </div>
+
+    <!-- Email/Password Registration Form -->
+    <form method="post" class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="button">Create an Account</button>
+    </form>
+
+    <p class="login-prompt">
+        Already have an account? <a>Log in</a>
+    </p>
+</section>
+{% endblock %}

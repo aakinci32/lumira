@@ -19,7 +19,8 @@ from django.shortcuts import render
 from lumira import views
 
 urlpatterns = [
-    path('', lambda request: render(request, 'index.html')),
+    path('', views.home, name='home'),
     path('add/', views.add_availability, name='add_availability'),
+    path('register/', views.register, name='register'),
     
 ]
