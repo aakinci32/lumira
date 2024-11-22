@@ -2,14 +2,14 @@
 
 {% block title %}Add Availability{% endblock %}
 
-{% block content %}<section class="section container">
+{% block content %}
+<section class="section container">
     <h1 class="section__title">Add Availability</h1>
     <p>Fill in your availability for tutoring sessions below:</p>
 
-    <!-- Time Selection Section -->
+    <!-- Availability Form -->
     <form id="availability-form" class="form">
         {% csrf_token %}
-        <h2>Time Selection</h2>
         <div class="form__group">
             {{ form.date.label_tag }}
             <input
@@ -27,51 +27,42 @@
             {{ form.end_time.label_tag }}
             {{ form.end_time }}
         </div>
-        <button type="button" id="add-time-button" class="button">Add Time Slot</button>
+        <button type="button" id="add-time-button" class="button">Add Time</button>
     </form>
 
     <!-- Selected Times -->
     <h2 id="selected-times-header" style="display: none;">Selected Times:</h2>
     <ul id="selected-times" class="slot-list"></ul>
 
-    <!-- Filter Adjustment Section -->
-    <form id="filter-form" class="form">
-        {% csrf_token %}
-        <h2>Adjust Filters</h2>
-        <div class="form__group">
-            <label for="exam-type">Exam Type</label>
-            <select name="exam_type" id="exam-type">
-                <option value="" disabled selected>Select an exam</option>
-                <option value="SAT">SAT</option>
-                <option value="ACT">ACT</option>
-                <option value="LSAT">LSAT</option>
-            </select>
+    <!-- Test Options Section -->
+    <section class="section container">
+        <h2>Select Test:</h2>
+        <div class="test-options">
+            <div class="circle" data-value="SAT">SAT</div>
+            <div class="circle" data-value="ACT">ACT</div>
+            <div class="circle" data-value="LSAT">LSAT</div>
         </div>
-        <div class="form__group">
-            <label for="language">Language</label>
-            <select name="language" id="language">
-                <option value="" disabled selected>Select a language</option>
-                <option value="English">English</option>
-                <option value="Spanish">Spanish</option>
-                <option value="French">French</option>
-            </select>
+        <h2>Language:</h2>
+        <div class="test-options">
+            <div class="circle" data-value="English">English</div>
+            <div class="circle" data-value="Korean">Korean</div>
+            <div class="circle" data-value="French">French</div>
         </div>
-        <button type="button" id="apply-filters-button" class="button">Apply Filters</button>
-    </form>
+        <input type="hidden" id="selected-tests" name="tests" value="">
+    </section>
 
     <!-- Submit Form -->
     <form method="post" id="submit-form" class="form">
         {% csrf_token %}
         <input type="hidden" id="times-input" name="times">
-        <input type="hidden" id="filters-input" name="filters">
+        <input type="hidden" id="test-input" name="tests">
         <button type="submit" class="button">Save Availability</button>
     </form>
 </section>
 
-
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Time Selection Logic
         const availabilityForm = document.getElementById('availability-form');
         const addTimeButton = document.getElementById('add-time-button');
         const selectedTimesHeader = document.getElementById('selected-times-header');
@@ -127,66 +118,25 @@
                 selectedTimesHeader.style.display = 'none';
             }
         }
-    });
 
+        // Multi-Select Logic for Circles
+        const circles = document.querySelectorAll('.circle');
+        const selectedTestsInput = document.getElementById('test-input');
+        let selectedTests = [];
 
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const dateInput = document.querySelector('input[type="date"]');
-        const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
-        dateInput.setAttribute('min', today); // Set the minimum date
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('availability-form');
-        const addSlotButton = document.getElementById('add-slot-button');
-        const selectedSlotsList = document.getElementById('selected-slots');
-        const slotsInput = document.getElementById('slots-input');
-        let selectedSlots = [];
-
-        addSlotButton.addEventListener('click', function () {
-            const date = form.querySelector('[name="date"]').value;
-            const startTime = form.querySelector('[name="start_time"]').value;
-            const endTime = form.querySelector('[name="end_time"]').value;
-
-            if (date && startTime && endTime) {
-                const slot = `${date} ${startTime} - ${endTime}`;
-                if (!selectedSlots.includes(slot)) {
-                    selectedSlots.push(slot);
-
-                    // Create a new slot container
-                    const slotContainer = document.createElement('div');
-                    slotContainer.className = 'slot-item';
-
-                    // Add the slot text
-                    const slotText = document.createElement('span');
-                    slotText.textContent = slot;
-
-                    // Add the circular "X" button
-                    const removeButton = document.createElement('button');
-                    removeButton.innerHTML = '&times;';
-                    removeButton.className = 'remove-slot-circle';
-                    removeButton.type = 'button';
-                    removeButton.addEventListener('click', function () {
-                        selectedSlots = selectedSlots.filter(s => s !== slot);
-                        slotContainer.remove();
-                        updateHiddenInput();
-                    });
-
-                    // Append elements
-                    slotContainer.appendChild(slotText);
-                    slotContainer.appendChild(removeButton);
-                    selectedSlotsList.appendChild(slotContainer);
-                    updateHiddenInput();
+        circles.forEach(circle => {
+            circle.addEventListener('click', function () {
+                const value = this.getAttribute('data-value');
+                if (selectedTests.includes(value)) {
+                    selectedTests = selectedTests.filter(test => test !== value);
+                    this.classList.remove('selected');
+                } else {
+                    selectedTests.push(value);
+                    this.classList.add('selected');
                 }
-            }
+                selectedTestsInput.value = JSON.stringify(selectedTests);
+            });
         });
-
-
-        function updateHiddenInput() {
-            slotsInput.value = JSON.stringify(selectedSlots);
-        }
     });
 </script>
 {% endblock %}

@@ -1324,3 +1324,36 @@ img {
   box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.3);
 }
 
+
+.test-options {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.circle {
+  width: 80px; /* Increase width */
+  height: 80px; /* Increase height */
+  border-radius: 50%; /* Keep it circular */
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem; /* Adjust font size */
+  color: #000;
+  border: 2px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+.circle:hover {
+  background-color: #ddd;
+}
+
+.circle.selected {
+  background-color: #007bff; /* Blue color */
+  color: white;
+  border-color: #0056b3;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow when selected */
+}
