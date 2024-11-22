@@ -1,17 +1,23 @@
 from django import forms
 from .models import Availability, CustomUser
 from django.contrib.auth.forms import UserCreationForm
+from datetime import date
+
 
 class AvailabilityForm(forms.ModelForm):
     class Meta:
         model = Availability
         fields = ['date', 'start_time', 'end_time']
         widgets = {
-            'date': forms.DateInput(attrs={'type': 'date'}),
+            'date': forms.DateInput(
+                attrs={
+                    'type': 'date',
+                    'min': date.today().isoformat()  # Set the minimum date to today
+                }
+            ),
             'start_time': forms.TimeInput(attrs={'type': 'time'}),
             'end_time': forms.TimeInput(attrs={'type': 'time'}),
         }
-
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
