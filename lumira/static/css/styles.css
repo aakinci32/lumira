@@ -82,10 +82,19 @@ body {
   color: var(--text-color);
 }
 
-h1, h2, h3 {
+h1, h3 {
   color: var(--title-color);
   font-weight: var(--font-bold);
 }
+
+h2 {
+  margin-top: 20px;
+  font-size: var(--h2-font-size);
+  color: var(--title-color);
+  border-bottom: 2px solid var(--first-color);
+  padding-bottom: 10px;
+}
+
 
 ul {
   list-style: none;
@@ -243,12 +252,24 @@ img {
   cursor: pointer;
 }
 
-.nav .nav__button{
-  background-color: var(--button-color-main);
-  border: 2px solid var(--first-color-light);
-  /*border:none;*/
-
+.nav__button {
+  background-color: var(--button-color-main); /* Keep the button's background white */
+  color: var(--title-color); /* Ensure text color is always black */
+  border: 2px solid var(--first-color-light); /* Keep the existing border */
+  font-weight: var(--font-bold); /* Keep the font bold */
+  text-align: center; /* Center the text */
+  padding: 10px 20px; /* Adjust padding if needed */
+  border-radius: 25px; /* Maintain rounded corners */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.nav__button:hover {
+  background-color: var(--first-color-light); /* Change background on hover */
+  color: var(--title-color); /* Maintain black text on hover */
+}
+
+
+
 /* For large devices */
 @media screen and (min-width: 1032px){
   .nav{
@@ -1127,3 +1148,179 @@ img {
   margin: 0 auto; /* Center the form horizontally */
   padding: 20px;
 }
+
+.slot-list {
+  list-style: none;
+  margin-top: 20px;
+  padding: 0;
+}
+
+.slot-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0; /* Space between items */
+  padding: 10px 15px; /* Padding inside the item */
+  background-color: var(--body-color);
+  border: 2px solid var(--first-color); /* Add solid border */
+  border-radius: 25px; /* Rounded corners */
+  font-size: var(--normal-font-size);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  color: var(--text-color);
+  max-width: 400px; /* Control the width of the item */
+}
+
+.slot-item span {
+  flex: 1; /* Allow text to take up remaining space */
+  padding: 0 10px; /* Space between text and edges */
+}
+
+.remove-slot-circle {
+  background-color: var(--first-color);
+  color: white;
+  border: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; /* Circular shape */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for button */
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.remove-slot-circle:hover {
+  background-color: var(--first-color-dark);
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+.slot-item:hover {
+  border-color: var(--first-color-dark); /* Darker border on hover */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+
+/* Form container styling */
+.form {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: var(--body-color);
+  border: 2px solid var(--first-color-light);
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form group styling */
+.form__group {
+  margin-bottom: 15px; /* Space between form fields */
+}
+
+.form__group label {
+  display: block; /* Make labels block-level */
+  margin-bottom: 5px; /* Space below the label */
+  font-weight: bold; /* Emphasize labels */
+  color: var(--title-color); /* Match site theme */
+}
+
+/* Input field styling */
+.form__group input {
+  width: 100%; /* Full width of the form */
+  padding: 10px; /* Add padding for usability */
+  font-size: var(--normal-font-size);
+  border: 1px solid var(--first-color-light);
+  border-radius: 8px; /* Rounded corners */
+  background-color: var(--body-color);
+  color: var(--text-color);
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow */
+  outline: none; /* Remove outline */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Input focus state */
+.form__group input:focus {
+  border-color: var(--first-color); /* Highlight border */
+  box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.3); /* Subtle glow */
+}
+
+/* Button styling */
+.button {
+  display: block; /* Center button on mobile */
+  width: 100%; /* Full-width for mobile devices */
+  max-width: 200px; /* Limit button size */
+  margin: 10px auto; /* Center button and add spacing */
+  padding: 10px 20px; /* Add padding */
+  background-color: var(--first-color);
+  color: white; /* Contrasting text color */
+  border: none;
+  border-radius: 25px; /* Rounded button */
+  font-size: var(--normal-font-size);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Button hover state */
+.button:hover {
+  background-color: var(--first-color-dark);
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Slot list styling */
+.slot-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px; /* Add space above the list */
+}
+
+.slot-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
+  padding: 10px 15px;
+  background-color: var(--first-color-light);
+  border: 1px solid var(--first-color);
+  border-radius: 25px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  color: var(--title-color);
+}
+
+.remove-slot-circle {
+  background-color: var(--first-color);
+  color: white;
+  border: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.remove-slot-circle:hover {
+  background-color: var(--first-color-dark);
+  transform: scale(1.1);
+}
+
+
+.form__group select {
+  width: 100%;
+  padding: 10px;
+  font-size: var(--normal-font-size);
+  border: 1px solid var(--first-color-light);
+  border-radius: 8px;
+  background-color: var(--body-color);
+  color: var(--text-color);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form__group select:focus {
+  border-color: var(--first-color);
+  box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.3);
+}
+
