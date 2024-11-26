@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<section class="section container">
+    <h2 class="section__title">Register a New Company</h2>
+    <form method="post" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        <div class="form__group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+        <div class="form__group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+        <div class="form__group">
+            {{ form.phone.label_tag }}
+            {{ form.phone }}
+        </div>
+        <div class="form__group">
+            {{ form.website.label_tag }}
+            {{ form.website }}
+        </div>
+        <div class="form__group">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+        </div>
+        <div class="form__group">
+            {{ form.logo.label_tag }}
+            {{ form.logo }}
+        </div>
+        <button type="submit" class="button">Register</button>
+    </form>
+</section>
+{% endblock %}

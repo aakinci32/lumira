@@ -48,6 +48,14 @@
             <div class="circle" data-value="Korean">Korean</div>
             <div class="circle" data-value="French">French</div>
         </div>
+        
+        <h2>Session Type:</h2>
+        <div class="session-options">
+            <div class="circle" data-value="Group">Group</div>
+            <div class="circle" data-value="One on One">One on One</div>
+        </div>
+        <input type="hidden" id="selected-session" name="session" value="">
+
         <input type="hidden" id="selected-tests" name="tests" value="">
     </section>
 
@@ -138,5 +146,20 @@
             });
         });
     });
+    // Session Type Selection Logic
+    const sessionCircles = document.querySelectorAll('.session-options .circle');
+    const selectedSessionInput = document.getElementById('selected-session');
+
+    sessionCircles.forEach(circle => {
+        circle.addEventListener('click', function () {
+            // Clear the selection from all session circles
+            sessionCircles.forEach(c => c.classList.remove('selected'));
+
+            // Mark the clicked circle as selected and update the input value
+            this.classList.add('selected');
+            selectedSessionInput.value = this.getAttribute('data-value');
+        });
+    });
+
 </script>
 {% endblock %}

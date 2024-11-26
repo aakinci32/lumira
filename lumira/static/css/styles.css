@@ -1324,27 +1324,27 @@ img {
   box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.3);
 }
 
-
+.session-options,
 .test-options {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 1rem;
+  display: flex; /* Arrange child elements in a row */
+  justify-content: flex-start; /* Align items at the start of the row */
+  align-items: center; /* Center items vertically */
+  gap: 10px; /* Add spacing between circles */
 }
 
 .circle {
-  width: 80px; /* Increase width */
-  height: 80px; /* Increase height */
-  border-radius: 50%; /* Keep it circular */
-  background-color: #f0f0f0;
+  width: 100px; /* Adjust the width */
+  height: 100px; /* Adjust the height */
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: lightgray; /* Default color */
+  border-radius: 50%; /* Make the element circular */
   cursor: pointer;
+  text-align: center;
+  font-size: 14px;
   font-weight: bold;
-  font-size: 1rem; /* Adjust font size */
-  color: #000;
-  border: 2px solid #ccc;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .circle:hover {
@@ -1356,4 +1356,49 @@ img {
   color: white;
   border-color: #0056b3;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow when selected */
+}
+
+/* Flex container for options */
+.form__options {
+  display: flex; /* Align options horizontally */
+  justify-content: center; /* Center-align the options */
+  gap: 2rem; /* Add space between options */
+  margin-top: 20px; /* Add spacing above the options */
+}
+
+/* Individual option */
+.form__option {
+  display: flex;
+  align-items: center; /* Center-align content vertically */
+  flex-direction: column; /* Stack circle and text vertically */
+  text-align: center;
+}
+
+/* Circle option styling */
+.circle-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer; /* Make it clickable */
+  position: relative;
+}
+
+.circle-option input {
+  display: none; /* Hide the default radio input */
+}
+.circle-option input:checked + .circle {
+  background-color: var(--first-color); /* Highlight when selected */
+  color: var(--body-color); /* Text color inside */
+  transform: scale(1.1); /* Slight zoom effect */
+}
+
+.circle-option .option-text {
+  margin-top: 10px; /* Space below the circle */
+  font-size: var(--normal-font-size);
+  font-weight: bold;
+  color: var(--text-color); /* Match site theme */
+  transition: color 0.3s ease;
+}
+.circle-option input:checked + .circle + .option-text {
+  color: var(--first-color); /* Highlight text when selected */
 }

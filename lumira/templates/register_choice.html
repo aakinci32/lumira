@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<section class="section container">
+    <h2 class="section__title">Register</h2>
+    <p>Please select an option:</p>
+    <form method="post" class="form">
+        {% csrf_token %}
+        <div class="form__options">
+            <!-- Option 1: Register under an existing company -->
+            <div class="form__option">
+                <label for="existing" class="circle-option">
+                    <input type="radio" name="registration_choice" id="existing" value="existing" required>
+                    <span class="circle"></span>
+                    <span class="option-text">Register under an existing company</span>
+                </label>
+            </div>
+
+            <!-- Option 2: Register a new company -->
+            <div class="form__option">
+                <label for="new" class="circle-option">
+                    <input type="radio" name="registration_choice" id="new" value="new" required>
+                    <span class="circle"></span>
+                    <span class="option-text">Register a new company</span>
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="button">Continue</button>
+    </form>
+</section>
+{% endblock %}

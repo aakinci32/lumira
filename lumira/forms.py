@@ -1,5 +1,5 @@
 from django import forms
-from .models import Availability, CustomUser
+from .models import Availability, CustomUser, Company
 from django.contrib.auth.forms import UserCreationForm
 from datetime import date
 
@@ -29,3 +29,12 @@ class CustomUserCreationForm(UserCreationForm):
         if CustomUser.objects.filter(email=email).exists():
             raise forms.ValidationError("This email is already in use.")
         return email
+
+
+class CompanyRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        fields = ['name', 'email', 'phone', 'website', 'description', 'logo']
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 5}),
+        }

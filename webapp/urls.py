@@ -17,10 +17,22 @@ Including another URLconf
 from django.urls import path
 from django.shortcuts import render
 from lumira import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('', views.home, name='home'),
     path('search/', views.add_availability, name='add_availability'),
     path('register/', views.register, name='register'),
+     path('register_new_company/', views.register_choice, name='register_choice'),
+    path('register_existing_company/', views.register_existing_company, name='register_existing_company'),
+    path('company_registration/', views.company_registration, name='company_registration'),
+    path('fill_options', views.fill_options, name='fill_options')
+    
     
 ]
+
+# Serve media files during development
+if settings.DEBUG:  # Only in development mode
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Fill Options{% endblock %}
+
+{% block content %}
+<section class="section container">
+    <h1 class="section__title">Tutor Availability</h1>
+    <p>Please fill in the details below to set your availability:</p>
+
+    <!-- Tutor Name -->
+    <form method="post" id="availability-form" class="form">
+        {% csrf_token %}
+        <div class="form__group">
+            <label for="tutor_name">Tutor Name:</label>
+            <input type="text" name="tutor_name" id="tutor_name" required placeholder="Enter your name">
+        </div>
+
+        <!-- Time Availability -->
+        <div class="form__group">
+            <label for="date">Date:</label>
+            <input type="date" name="date" id="date" min="{{ today }}" required>
+        </div>
+        <div class="form__group">
+            <label for="start_time">Start Time:</label>
+            <input type="time" name="start_time" id="start_time" required>
+        </div>
+        <div class="form__group">
+            <label for="end_time">End Time:</label>
+            <input type="time" name="end_time" id="end_time" required>
+        </div>
+
+        <!-- Recurring Availability -->
+        <div class="form__group">
+            <label for="recurring">Recurring Availability:</label>
+            <select name="recurring" id="recurring" required>
+                <option value="none">None</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="biweekly">Biweekly</option>
+            </select>
+        </div>
+
+        <!-- Subjects or Test Options -->
+        <section class="section container">
+            <h2>Select Tests/Subjects:</h2>
+            <div class="test-options">
+                <div class="circle" data-value="SAT">SAT</div>
+                <div class="circle" data-value="ACT">ACT</div>
+                <div class="circle" data-value="LSAT">LSAT</div>
+                <div class="circle" data-value="GMAT">GMAT</div>
+            </div>
+
+            <h2>Select Languages:</h2>
+            <div class="test-options">
+                <div class="circle" data-value="English">English</div>
+                <div class="circle" data-value="Spanish">Spanish</div>
+                <div class="circle" data-value="French">French</div>
+            </div>
+
+            <h2>Session Type:</h2>
+            <div class="session-options">
+                <div class="circle" data-value="Group">Group</div>
+                <div class="circle" data-value="One-on-One">One-on-One</div>
+            </div>
+        </section>
+
+        <button type="button" id="add-time-button" class="button">Add Time</button>
+    </form>
+
+    <h2 id="selected-times-header" style="display: none;">Selected Times:</h2>
+    <ul id="selected-times" class="slot-list"></ul>
+
+    <!-- Submit Form -->
+    <form method="post" id="submit-form" class="form">
+        {% csrf_token %}
+        <input type="hidden" id="times-input" name="times">
+        <input type="hidden" id="tests-input" name="tests">
+        <input type="hidden" id="languages-input" name="languages">
+        <input type="hidden" id="session-input" name="session">
+        <button type="submit" class="button">Save Availability</button>
+    </form>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Time selection logic
+        const addTimeButton = document.getElementById('add-time-button');
+        const selectedTimesHeader = document.getElementById('selected-times-header');
+        const selectedTimesList = document.getElementById('selected-times');
+        const timesInput = document.getElementById('times-input');
+        let selectedTimes = [];
+
+        addTimeButton.addEventListener('click', function () {
+            const date = document.getElementById('date').value;
+            const startTime = document.getElementById('start_time').value;
+            const endTime = document.getElementById('end_time').value;
+            const recurring = document.getElementById('recurring').value;
+
+            if (date && startTime && endTime) {
+                const timeSlot = `${date} ${startTime} - ${endTime} (${recurring})`;
+                if (!selectedTimes.includes(timeSlot)) {
+                    selectedTimes.push(timeSlot);
+
+                    const slotContainer = document.createElement('div');
+                    slotContainer.className = 'slot-item';
+
+                    const slotText = document.createElement('span');
+                    slotText.textContent = timeSlot;
+
+                    const removeButton = document.createElement('button');
+                    removeButton.innerHTML = '&times;';
+                    removeButton.className = 'remove-slot-circle';
+                    removeButton.type = 'button';
+                    removeButton.addEventListener('click', function () {
+                        selectedTimes = selectedTimes.filter(s => s !== timeSlot);
+                        slotContainer.remove();
+                        updateTimesInput();
+                    });
+
+                    slotContainer.appendChild(slotText);
+                    slotContainer.appendChild(removeButton);
+                    selectedTimesList.appendChild(slotContainer);
+                    updateTimesInput();
+                }
+            } else {
+                alert("Please complete all fields for time selection.");
+            }
+        });
+
+        function updateTimesInput() {
+            timesInput.value = JSON.stringify(selectedTimes);
+            toggleSelectedTimesHeader();
+        }
+
+        function toggleSelectedTimesHeader() {
+            if (selectedTimes.length > 0) {
+                selectedTimesHeader.style.display = 'block';
+            } else {
+                selectedTimesHeader.style.display = 'none';
+            }
+        }
+
+        // Circle selection logic for test/subject filters
+        const circles = document.querySelectorAll('.circle');
+        const testsInput = document.getElementById('tests-input');
+        const languagesInput = document.getElementById('languages-input');
+        const sessionInput = document.getElementById('session-input');
+
+        let selectedTests = [];
+        let selectedLanguages = [];
+        let selectedSession = '';
+
+        circles.forEach(circle => {
+            circle.addEventListener('click', function () {
+                const value = this.getAttribute('data-value');
+
+                if (this.parentNode.classList.contains('test-options')) {
+                    toggleSelection(value, selectedTests, this);
+                    testsInput.value = JSON.stringify(selectedTests);
+                } else if (this.parentNode.classList.contains('session-options')) {
+                    selectedSession = value;
+                    sessionInput.value = selectedSession;
+                    this.parentNode.querySelectorAll('.circle').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                } else {
+                    toggleSelection(value, selectedLanguages, this);
+                    languagesInput.value = JSON.stringify(selectedLanguages);
+                }
+            });
+        });
+
+        function toggleSelection(value, array, element) {
+            if (array.includes(value)) {
+                array.splice(array.indexOf(value), 1);
+                element.classList.remove('selected');
+            } else {
+                array.push(value);
+                element.classList.add('selected');
+            }
+        }
+    });
+</script>
+{% endblock %}

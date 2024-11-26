@@ -44,7 +44,7 @@
             
                     <!-- Company Registration Tab -->
                     <li class="nav__item">
-                        <a href="" class="nav__link {% if request.path == '/company_registration/' %}active-link{% endif %}">Company Registration</a><!--TODO: FILL THIS LATER-->
+                        <a href="{% url 'register_choice' %}" class="nav__link {% if request.path == '/company_registration/' %}active-link{% endif %}">Company Registration</a><!--TODO: FILL THIS LATER-->
                     </li>
             
                     <!-- Log In Tab -->

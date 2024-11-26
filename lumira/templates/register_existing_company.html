@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Register under an Existing Company{% endblock %}
+
+{% block content %}
+<section class="section container">
+    <h2 class="section__title">Register under an Existing Company</h2>
+    <form method="post" class="form">
+        {% csrf_token %}
+        <div class="form__group">
+            <label for="company">Select a company:</label>
+            <select name="company" id="company" required>
+                {% for company in companies %}
+                    <option value="{{ company.id }}">{{ company.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="button">Register</button>
+    </form>
+</section>
+{% endblock %}
+

@@ -64,3 +64,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+class Company(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)  # New field
+
+    def __str__(self):
+        return self.name
