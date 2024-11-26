@@ -56,7 +56,21 @@
                     <div class="nav__link">
                         <a href="{% url 'register' %}" class="button nav__button {% if request.path == '/register/' %}active-link{% endif %}">Register Now</a>
                     </div>
+                    <!-- Profile Placeholder -->
+                    <div class="profile" id="profile-menu">
+                        <i class="ri-user-line"></i>
+                        <div class="profile__dropdown">
+                            <ul>
+                                <li><a href="{% url 'account' %}">View Profile</a></li>
+                                <li><a href="#">Settings</a></li>
+                                <li><a href="#">Log Out</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </ul>
+
+
+                
                 <div class="nav__close" id="nav-close">
                     <i class="ri-close-line"></i>
                 </div>

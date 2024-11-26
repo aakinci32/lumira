@@ -1402,3 +1402,65 @@ img {
 .circle-option input:checked + .circle + .option-text {
   color: var(--first-color); /* Highlight text when selected */
 }
+
+/* Profile Icon */
+.profile {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: auto; /* Push it to the far right */
+  font-size: 1.5rem;
+  color: var(--title-color); /* Match theme */
+}
+
+.profile i {
+  font-size: 1.8rem;
+  transition: color 0.3s ease;
+}
+
+.profile:hover i {
+  color: var(--first-color);
+}
+
+/* Profile Dropdown */
+.profile__dropdown {
+  display: none; /* Hidden by default */
+  position: absolute;
+  right: 0;
+  background-color: var(--body-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--first-color-light);
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.profile__dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile__dropdown ul li {
+  padding: 10px;
+  font-size: var(--normal-font-size);
+}
+
+.profile__dropdown ul li:hover {
+  background-color: var(--first-color-light);
+}
+
+.profile__dropdown ul li a {
+  text-decoration: none;
+  color: var(--title-color);
+  transition: color 0.3s ease;
+}
+
+.profile__dropdown ul li a:hover {
+  color: var(--first-color-dark);
+}
+
+/* Show dropdown on hover */
+.profile:hover .profile__dropdown {
+  display: block;
+}

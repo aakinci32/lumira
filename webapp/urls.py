@@ -28,7 +28,8 @@ urlpatterns = [
      path('register_new_company/', views.register_choice, name='register_choice'),
     path('register_existing_company/', views.register_existing_company, name='register_existing_company'),
     path('company_registration/', views.company_registration, name='company_registration'),
-    path('fill_options', views.fill_options, name='fill_options')
+    path('fill_options', views.fill_options, name='fill_options'), 
+    path('account', views.account, name='account')
     
     
 ]

@@ -88,3 +88,22 @@ def fill_options(request):
     else:
         today = date.today().isoformat()
         return render(request, 'fill_options.html', {'today': today})
+
+    
+
+def account(request):
+    user = request.user
+    # Get the user's availability if they're a tutor
+    availability = Availability.objects.filter(user=user).order_by('date', 'start_time')
+
+    # If the user is linked to a company, fetch company details
+    company = None
+    if hasattr(user, 'company'):
+        company = user.company
+
+    context = {
+        'user': user,
+        'availability': availability,
+        'company': company,
+    }
+    return render(request, 'account.html', context)
