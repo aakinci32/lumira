@@ -14,22 +14,26 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import path, include
 from django.shortcuts import render
 from lumira import views
 from django.conf import settings
 from django.conf.urls.static import static
+from lumira.views import CustomLoginView
 
 
 urlpatterns = [
     path('', views.home, name='home'),
     path('search/', views.add_availability, name='add_availability'),
     path('register/', views.register, name='register'),
-     path('register_new_company/', views.register_choice, name='register_choice'),
+    path('register_new_company/', views.register_choice, name='register_choice'),
     path('register_existing_company/', views.register_existing_company, name='register_existing_company'),
     path('company_registration/', views.company_registration, name='company_registration'),
     path('fill_options', views.fill_options, name='fill_options'), 
-    path('account', views.account, name='account')
+    path('account', views.account, name='account'), 
+    path('logout/', views.logout_view, name='logout'),  # Add this line
+    path('login/', CustomLoginView.as_view(), name='login'),
+    
     
     
 ]
@@ -37,3 +41,7 @@ urlpatterns = [
 # Serve media files during development
 if settings.DEBUG:  # Only in development mode
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    path('accounts/', include('allauth.urls')),  # Adds the OAuth routes
+]

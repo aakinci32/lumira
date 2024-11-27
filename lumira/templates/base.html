@@ -44,39 +44,41 @@
             
                     <!-- Company Registration Tab -->
                     <li class="nav__item">
-                        <a href="{% url 'register_choice' %}" class="nav__link {% if request.path == '/company_registration/' %}active-link{% endif %}">Company Registration</a><!--TODO: FILL THIS LATER-->
+                        <a href="{% url 'register_choice' %}" class="nav__link {% if request.path == '/company_registration/' %}active-link{% endif %}">Company Registration</a>
                     </li>
-            
-                    <!-- Log In Tab -->
-                    <li class="nav__item">
-                        <a href="" class="nav__link {% if request.path == '/login/' %}active-link{% endif %}">Log In</a> <!--TODO: FILL THIS LATER-->
-                    </li>
-            
-                    <!-- Register Button -->
-                    <div class="nav__link">
-                        <a href="{% url 'register' %}" class="button nav__button {% if request.path == '/register/' %}active-link{% endif %}">Register Now</a>
-                    </div>
+                    
                     <!-- Profile Placeholder -->
+                    {% if user.is_authenticated %}
                     <div class="profile" id="profile-menu">
-                        <i class="ri-user-line"></i>
+                        {% if profile_pic_url %}
+                            <img src="{{ profile_pic_url }}" alt="Profile Picture" class="profile__image">
+                        {% else %}
+                            <i class="ri-user-line"></i>
+                        {% endif %}
                         <div class="profile__dropdown">
                             <ul>
                                 <li><a href="{% url 'account' %}">View Profile</a></li>
                                 <li><a href="#">Settings</a></li>
-                                <li><a href="#">Log Out</a></li>
+                                <li><a href="{% url 'logout' %}">Log Out</a></li> 
                             </ul>
                         </div>
                     </div>
+                    {% else %}
+                    <!-- Log In Tab -->
+                    <li class="nav__item">
+                        <a href="{% url 'login' %}" class="nav__link {% if request.path == '/login/' %}active-link{% endif %}">Log In</a>
+                    </li>
+
+                    <!-- Register Button -->
+                    <div class="nav__link">
+                        <a href="{% url 'register' %}" class="button nav__button {% if request.path == '/register/' %}active-link{% endif %}">Register Now</a>
+                    </div>
+                    {% endif %}
                 </ul>
-
-
                 
                 <div class="nav__close" id="nav-close">
                     <i class="ri-close-line"></i>
                 </div>
-            </div>
-            
-            
             </div>
             <div class="nav__toggle" id="nav-toggle"><i class="ri-menu-line"></i></div>
         </nav>

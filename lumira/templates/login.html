@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+<section class="section container">
+    <h1 class="section__title">Log In</h1>
+    <p>Welcome back! Log in to continue.</p>
+    
+    <!-- OAuth Login Buttons -->
+    <div class="oauth-buttons">
+        <a href="{% provider_login_url 'google' %}" class="oauth-button google">
+            Continue with Google
+        </a>
+    </div>
+
+    <div class="separator">
+        <span>or</span>
+    </div>
+
+    <!-- Email/Password Login Form -->
+    <form method="post" class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="button">Log In</button>
+    </form>
+
+    <p class="register-prompt">
+        Don't have an account? <a href="{% url 'register' %}">Register now</a>
+    </p>
+
+    <p class="forgot-password">
+        Forgot your password? <a href="{% url 'account_reset_password' %}">Reset it here</a>
+    </p>
+</section>
+{% endblock %}
+

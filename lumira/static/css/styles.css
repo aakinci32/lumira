@@ -1464,3 +1464,41 @@ img {
 .profile:hover .profile__dropdown {
   display: block;
 }
+
+.profile__image {
+  width: 40px; /* Adjust as needed */
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  margin-left: auto; /* Align to the right */
+}
+
+.profile__image:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.account__reservations {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.reservations-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.reservations-table th, .reservations-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.reservations-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
